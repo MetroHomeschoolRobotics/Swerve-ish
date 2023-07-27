@@ -72,23 +72,23 @@ public class SwerveModule {
     //CANCoderUtil.setCANCoderBusUsage(angleEncoder, CCUsage.kMinimal);
     //angleEncoder.configAllSettings(Robot.ctreConfigs.swerveCanCoderConfig);
   //}
-
-  //private void configAngleMotor() {
-    //angleMotor.restoreFactoryDefaults();
-    //CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
-    //angleMotor.setSmartCurrentLimit(Constants.Swerve.angleContinuousCurrentLimit);
-    //angleMotor.setInverted(Constants.Swerve.angleInvert);
-    //angleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
-    //integratedAngleEncoder.setPositionConversionFactor(Constants.Swerve.angleConversionFactor);
-    //angleController.setP(Constants.Swerve.angleKP);
-    //angleController.setI(Constants.Swerve.angleKI);
-    //angleController.setD(Constants.Swerve.angleKD);
-    //angleController.setFF(Constants.Swerve.angleKFF);
-    //angleMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
-    //angleMotor.burnFlash();
-    //resetToAbsolute();
-  //}
-
+/* 
+  private void configAngleMotor() {
+    angleMotor.restoreFactoryDefaults();
+    CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
+    angleMotor.setSmartCurrentLimit(Constants.Swerve.angleContinuousCurrentLimit);
+    angleMotor.setInverted(Constants.Swerve.angleInvert);
+    angleMotor.setIdleMode(Constants.Swerve.angleNeutralMode);
+    integratedAngleEncoder.setPositionConversionFactor(Constants.Swerve.angleConversionFactor);
+    angleController.setP(Constants.Swerve.angleKP);
+    angleController.setI(Constants.Swerve.angleKI);
+    angleController.setD(Constants.Swerve.angleKD);
+    angleController.setFF(Constants.Swerve.angleKFF);
+    angleMotor.enableVoltageCompensation(Constants.Swerve.voltageComp);
+    angleMotor.burnFlash();
+    resetToAbsolute();
+  }
+ */
   //private void configDriveMotor() {
     //driveMotor.restoreFactoryDefaults();
     //CANSparkMaxUtil.setCANSparkMaxBusUsage(driveMotor, Usage.kAll);
@@ -129,8 +129,8 @@ public class SwerveModule {
   }
 
   public Rotation2d getAngle() {
-    double angle = Math.IEEEremainder(angleEncoder.get(), Constants.Swerve.anglePPR)/Constants.Swerve.anglePPR *360;//TODO convert from distance to radians
-    return Rotation2d.fromDegrees(angle);
+    double angle = Math.IEEEremainder(angleEncoder.get(), Constants.Swerve.anglePPR)/Constants.Swerve.anglePPR *360;
+        return Rotation2d.fromDegrees(angle);
   }
 
   public Rotation2d getCanCoder() {

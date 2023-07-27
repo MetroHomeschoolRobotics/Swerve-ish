@@ -2,6 +2,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
@@ -47,6 +48,12 @@ public class TeleopSwerve extends CommandBase {
         rotationLimiter.calculate(
             MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
 
+    SmartDashboard.putNumber("TranslationAfterDeadband", translationVal);
+    SmartDashboard.putNumber("StrafeAfterDeadband", strafeVal);
+    SmartDashboard.putNumber("RotationAfterDeadband", rotationVal);
+    SmartDashboard.putNumber("Translation", translationSup.getAsDouble());
+    SmartDashboard.putNumber("strafe", strafeSup.getAsDouble());
+    SmartDashboard.putNumber("rotation", rotationSup.getAsDouble());
     /* Drive */
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
@@ -54,4 +61,6 @@ public class TeleopSwerve extends CommandBase {
         !robotCentricSup.getAsBoolean(),
         true);
   }
+
+
 }
