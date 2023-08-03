@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.lib.config.SwerveModuleConstants;
-import frc.lib.math.OnboardModuleState;
 import frc.robot.Constants;
 
 public class SwerveModule {
@@ -52,11 +52,22 @@ public class SwerveModule {
 
     lastAngle = getState().angle;
   }
-
+  public SwerveModuleState optimize(
+    SwerveModuleState desiredState, Rotation2d currentAngle) {
+  double targetAngle = desiredState.angle.getDegrees();
+  if (desiredState.angle.getDegrees() - getAngle().getDegrees() < 1){
+    targetAngle = lastAngle.getDegrees();
+  }
+  double targetSpeed = desiredState.speedMetersPerSecond;
+ 
+  return new SwerveModuleState(targetSpeed, Rotation2d.fromDegrees(targetAngle));
+}
   public void setDesiredState(SwerveModuleState desiredState, boolean isOpenLoop) {
     // Custom optimize command, since default WPILib optimize assumes continuous controller which
     // REV and CTRE are not
-    desiredState = OnboardModuleState.optimize(desiredState, getState().angle);
+    desiredState = optimize(desiredState, getState().angle); //TODO uncomment
+    
+    SmartDashboard.putNumber("getstate.angle " + driveMotor.getChannel(), getState().angle.getDegrees()) ; 
 
     setAngle(desiredState);
     setSpeed(desiredState, isOpenLoop);
@@ -109,7 +120,9 @@ public class SwerveModule {
   private void setSpeed(SwerveModuleState desiredState, boolean isOpenLoop) {
     if (isOpenLoop) {
       double percentOutput = desiredState.speedMetersPerSecond / Constants.Swerve.maxSpeed;
+      //double percentOutput = 0.3;
       driveMotor.set(percentOutput);
+      SmartDashboard.putNumber("Set speed" + driveMotor.getChannel(), percentOutput) ; 
     } else {
       //driveController.setReference(desiredState.speedMetersPerSecond,ControlType.kVelocity,0,feedforward.calculate(desiredState.speedMetersPerSecond));
       driveMotor.set(feedforward.calculate(desiredState.speedMetersPerSecond));
@@ -124,7 +137,12 @@ public class SwerveModule {
             : desiredState.angle;
 
     //angleController.setReference(angle.getDegrees(), ControlType.kPosition);
-    angleMotor.set(desiredState.speedMetersPerSecond/Constants.Swerve.maxSpeed);
+    if (desiredState.angle.getDegrees() == lastAngle.getDegrees()){
+      angleMotor.set(0);
+    } else
+    {
+      angleMotor.set(.30);
+    }
     lastAngle = angle;
   }
 

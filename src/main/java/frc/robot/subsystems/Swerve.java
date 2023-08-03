@@ -53,7 +53,10 @@ public class Swerve extends SubsystemBase {
 
     for (SwerveModule mod : mSwerveMods) {
       mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
+      SmartDashboard.putNumber("desired speed state" + String.valueOf(mod.moduleNumber), swerveModuleStates[mod.moduleNumber].speedMetersPerSecond);
+      SmartDashboard.putNumber("desired degrees state" + String.valueOf(mod.moduleNumber), swerveModuleStates[mod.moduleNumber].angle.getDegrees());
     }
+    SmartDashboard.putBoolean("is open loop" , isOpenLoop);
   }
 
   /* Used by SwerveControllerCommand in Auto */
