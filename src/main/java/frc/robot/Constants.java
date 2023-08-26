@@ -90,7 +90,7 @@ public final class Constants {
       public static final int driveEncoder0 = 10;
       public static final int driveEncoder1 = 11;
       public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);//327.48046875
-      public static final double angleMotorSpeedOffset = 0.002270;
+      public static final double angleMotorSpeedOffset = -0.04270;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, angleEncoder0, angleEncoder1, driveEncoder0, driveEncoder1, angleOffset, angleMotorSpeedOffset);
     }
@@ -104,7 +104,7 @@ public final class Constants {
       public static final int driveEncoder0 = 12;
       public static final int driveEncoder1 = 13;
       public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);//286.34765625
-      public static final double angleMotorSpeedOffset = 0.001727;
+      public static final double angleMotorSpeedOffset = -0.01727;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, angleEncoder0, angleEncoder1, driveEncoder0, driveEncoder1, angleOffset, angleMotorSpeedOffset);
     }
@@ -118,7 +118,7 @@ public final class Constants {
       public static final int driveEncoder0 = 18;
       public static final int driveEncoder1 = 19;
       public static final Rotation2d angleOffset = Rotation2d.fromDegrees(0);//55.01953125
-      public static final double angleMotorSpeedOffset = 0.004819;
+      public static final double angleMotorSpeedOffset = -0.04819;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, angleEncoder0, angleEncoder1, driveEncoder0, driveEncoder1, angleOffset, angleMotorSpeedOffset);
     }

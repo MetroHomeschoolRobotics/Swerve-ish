@@ -73,6 +73,7 @@ public class SwerveModule {
     // Custom optimize command, since default WPILib optimize assumes continuous
     // controller which
     // REV and CTRE are not
+  
     desiredState = OnboardModuleState.optimize(desiredState, getState().angle); // TODO uncomment
 
     SmartDashboard.putNumber("getstate.speed " + driveMotor.getChannel(), getState().speedMetersPerSecond);
@@ -146,8 +147,8 @@ public class SwerveModule {
         : desiredState.angle;
 
     // angleController.setReference(angle.getDegrees(), ControlType.kPosition);
-    if (desiredState.angle.getDegrees() == lastAngle.getDegrees()) {
-      angleMotor.set(0);
+    if (desiredState.angle.getDegrees() > lastAngle.getDegrees() -1 && desiredState.angle.getDegrees() < lastAngle.getDegrees() +1) {
+      setAngleMotorSpeed(0);
     }
     else {
       setAngleMotorSpeed(desiredState.speedMetersPerSecond/Constants.Swerve.maxSpeed);
